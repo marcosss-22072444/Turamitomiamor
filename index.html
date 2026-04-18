@@ -1,68 +1,193 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Sorpresa 💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi amor</title>
+    <style>
+        /* Fondo rosita claro romántico */
+        body {
+            background-color: #ffe4e1; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            position: relative;
+        }
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: #ffe4ec;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-}
+        .contenedor {
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
 
-/* Contenedor del ramo */
-.bouquet {
-  position: relative;
-  opacity: 0;
-  transform: translateY(100px) scale(0.8);
-  animation: appear 3s ease forwards;
-}
+        /* Flores y envoltorio */
+        .ramo-container {
+            width: 320px;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+            position: relative;
+        }
 
-/* Imagen de flores realistas */
-.bouquet img {
-  width: 300px;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
-}
+        .ramo-container:hover {
+            transform: scale(1.08);
+        }
 
-/* Papel envolvente */
-.wrapper {
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 120px;
-  background: white;
-  border-radius: 10px;
-  background-image: radial-gradient(#ffc0cb 10%, transparent 11%);
-  background-size: 20px 20px;
-}
+        .flores {
+            width: 100%;
+            /* Animación de florecer poco a poco */
+            animation: florecer 4s ease-out forwards;
+            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.15));
+        }
 
-/* Lazo corazón */
-.ribbon {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  cursor: pointer;
-}
+        @keyframes florecer {
+            0% { 
+                clip-path: inset(100% 0 0 0); 
+                opacity: 0; 
+                transform: scale(0.8);
+            }
+            100% { 
+                clip-path: inset(0% 0 0 0); 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-.heart {
-  width: 60px;
-  height: 60px;
-  background: pink;
-  transform: rotate(-45deg);
-  position: relative;
-}
+        /* Lazo con forma de corazón / Botón */
+        .boton-lazo {
+            background: #ffb7c5;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: -20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 183, 197, 0.4);
+            border: 2px solid white;
+            cursor: pointer;
+            position: relative;
+            z-index: 6;
+            transition: 0.3s;
+        }
 
-.heart::before,
-.heart::after {
+        .boton-lazo:hover {
+            background: #ff8fa3;
+            transform: translateY(-3px);
+        }
+
+        /* Nota emergente */
+        #nota {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            width: 280px;
+            z-index: 100;
+            border: 3px solid #ffb7c5;
+            text-align: center;
+            animation: aparecerNota 0.5s ease-out;
+        }
+
+        @keyframes aparecerNota {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .texto-nota {
+            color: #d63384;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Pétalos cayendo */
+        .petalo {
+            position: absolute;
+            background-color: #ffb7c5;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
+            animation: caer 6s linear infinite;
+        }
+
+        @keyframes caer {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        button.cerrar {
+            background: none;
+            border: none;
+            color: #ff8fa3;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <div class="ramo-container" onclick="mostrarNota()">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/3851035279772666516_1" alt="Ramo de rosas" class="flores">
+            
+            <div class="boton-lazo">Pulsa aquí ❤️</div>
+        </div>
+
+        <div id="nota">
+            <p class="texto-nota">
+                Para la mejor persona de mi vida...<br><br>
+                <strong>Te amo amor mio 🤍</strong>
+            </p>
+            <button class="cerrar" onclick="cerrarNota()">Cerrar con amor</button>
+        </div>
+    </div>
+
+    <script>
+        // Función para mostrar la nota
+        function mostrarNota() {
+            document.getElementById('nota').style.display = 'block';
+        }
+
+        // Función para cerrar la nota
+        function cerrarNota(event) {
+            document.getElementById('nota').style.display = 'none';
+            if (event) event.stopPropagation();
+        }
+
+        // Crear pétalos de forma aleatoria
+        function crearPetalos() {
+            const petalo = document.createElement('div');
+            petalo.classList.add('petalo');
+            petalo.style.left = Math.random() * 100 + 'vw';
+            petalo.style.width = Math.random() * 15 + 10 + 'px';
+            petalo.style.height = petalo.style.width;
+            petalo.style.animationDuration = Math.random() * 4 + 3 + 's';
+            petalo.style.opacity = Math.random();
+            document.body.appendChild(petalo);
+
+            // Eliminar pétalo después de que termine la animación para no saturar la web
+            setTimeout(() => {
+                petalo.remove();
+            }, 6000);
+        }
+
+        // Generar pétalos cada 300 milisegundos
+        setInterval(crearPetalos, 400);
+    </script>
+</body>
+</html>
   content: "";
   width: 60px;
   height: 60px;
