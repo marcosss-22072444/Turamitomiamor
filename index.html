@@ -3,37 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para alguien especial 🤍</title>
+    <title>Un Ramo Especial para Ti 🤍</title>
     <style>
         :root {
-            --color-pink: #ff85a2;
-            --color-stem: #2d5a27;
-            --color-bg: #fff5f7;
+            --color-bg: #fff; /* Fondo blanco puro para limpieza */
         }
 
-        body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: var(--color-bg);
-            font-family: 'Arial', sans-serif;
             overflow: hidden;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
-        /* Contenedor del Ramo */
-        .bouquet {
+        #bloom-container {
             position: relative;
-            width: 300px;
-            height: 400px;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
-        /* Estilo de las flores (animación de crecimiento) */
-        .flower {
+        /* Imágenes del ramo realistas superpuestas */
+        .flower-image {
+            position: absolute;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            opacity: 0; /* Por defecto ocultas */
+            transition: opacity 1.5s ease-in-out; /* Transición suave de fundido */
+            transform-origin: bottom center;
+            transform: scale(0.9); /* Ligeramente más pequeñas al inicio */
+        }
+
+        /* Control de la animación por clases */
+        .flower-image.bloom-start {
+            opacity: 1;
+            transform: scale(0.95);
+        }
+
+        .flower-image.bloom-mid {
+            opacity: 1;
+            transform: scale(0.98);
+        }
+
+        .flower-image.bloom-full {
+            opacity: 1;
+            transform: scale(1); /* Tamaño final completo */
+        }
+
+        /* Etiqueta / Lazo blanco interactivo */
+        #interactive-tag {
+            position: absolute;
+            bottom: 12%; /* Cerca del nudo del lazo real */
+            background-color: #fff; /* Etiqueta blanca */
+            border: 2px solid #ccc; /* Un borde sutil */
+            color: #333;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            border-radius
             position: absolute;
             bottom: 50px;
             transform-origin: bottom center;
