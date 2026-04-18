@@ -2,38 +2,229 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para mi amor</title>
     <style>
-        /* Fondo rosita claro romántico */
-        body {
-            background-color: #ffe4e1; 
+        /* ESTILOS BASE Y RESPONSIVE */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Evita barras de desplazamiento */
+            background-color: #ffe4e1; /* Fondo rosita claro */
+            font-family: 'Georgia', serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Georgia', serif;
-            overflow: hidden;
-            position: relative;
         }
 
-        .contenedor {
-            text-align: center;
+        /* Contenedor principal centrado */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%; /* Ocupa el 90% del ancho del dispositivo */
+            max-width: 400px; /* Ancho máximo para que no se vea enorme en PC */
+            height: auto;
             position: relative;
-            z-index: 5;
+            z-index: 10;
         }
 
-        /* Flores y envoltorio */
-        .ramo-container {
-            width: 320px;
+        /* CONTENEDOR DE LAS FLORES Y LAZO */
+        .ramo-interactive-container {
+            width: 100%;
+            position: relative;
             cursor: pointer;
-            transition: transform 0.4s ease;
-            position: relative;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .ramo-container:hover {
-            transform: scale(1.08);
+        .ramo-interactive-container:hover {
+            transform: scale(1.03);
+        }
+
+        /* Imagen del ramo CORREGIDA */
+        .flores-img {
+            width: 100%; /* Se adapta al ancho del contenedor padre */
+            height: auto; /* Mantiene la proporción */
+            display: block;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+            
+            /* Sincronización de la animación de florecer */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: florecerSuave 3s ease-out 0.5s forwards;
+        }
+
+        /* Animación de florecer mejorada */
+        @keyframes florecerSuave {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Lazo/Botón CORREGIDO */
+        .boton-lazo {
+            background-color: #ffb7c5; /* Rosa pastel */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 2px solid white;
+            font-weight: bold;
+            font-size: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255,183,197,0.5);
+            
+            /* Posicionamiento relativo para superponerlo ligeramente */
+            margin-top: -15px; 
+            position: relative;
+            z-index: 11;
+            
+            transition: background-color 0.2s;
+        }
+
+        .boton-lazo:hover {
+            background-color: #ff8fa3;
+        }
+
+        /* NOTA EMERGENTE CORREGIDA Y ADAPTABLE */
+        #nota {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            max-width: 320px;
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #ffb7c5;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            z-index: 100;
+            text-align: center;
+            animation: entradaNota 0.4s ease-out;
+        }
+
+        @keyframes entradaNota {
+            from { opacity: 0; transform: translate(-50%, -45%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .texto-nota {
+            color: #d63384;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* CORAZONES BLANCOS CAYENDO */
+        .corazon-blanco {
+            position: absolute;
+            background-color: #ffffff; /* BLANCO PURO */
+            width: 10px;
+            height: 10px;
+            border-radius: 50%; /* Inicialmente círculos */
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 1;
+            animation: caerCorazon 5s linear infinite;
+            box-shadow: 0 0 4px rgba(255,255,255,0.7);
+        }
+
+        /* Transformar círculos en formas de corazón con pseudo-elementos */
+        .corazon-blanco::before,
+        .corazon-blanco::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: 50%;
+        }
+        .corazon-blanco::before { left: -5px; }
+        .corazon-blanco::after { top: -5px; }
+
+        @keyframes caerCorazon {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Botón cerrar nota */
+        .cerrar-btn {
+            background: none;
+            border: none;
+            color: #ff8fa3;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="ramo-interactive-container" onclick="mostrarNota()">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/3851035279772666516_1" alt="Ramo de rosas" class="flores-img">
+            
+            <div class="boton-lazo">Pulsa aquí ❤️</div>
+        </div>
+    </div>
+
+    <div id="nota">
+        <p class="texto-nota">
+            Para la mejor persona de mi vida...<br><br>
+            <strong>Te amo amor mio 🤍</strong>
+        </p>
+        <button class="cerrar-btn" onclick="cerrarNota(event)">Cerrar</button>
+    </div>
+
+    <script>
+        // Funciones de la nota
+        function mostrarNota() {
+            document.getElementById('nota').style.display = 'block';
+        }
+
+        function cerrarNota(event) {
+            event.stopPropagation(); // Importante para que no se reabra
+            document.getElementById('nota').style.display = 'none';
+        }
+
+        // Sistema de corazones blancos cayendo
+        function crearCorazon() {
+            const corazon = document.createElement('div');
+            corazon.classList.add('corazon-blanco');
+            
+            // Posición horizontal aleatoria
+            corazon.style.left = Math.random() * 100 + 'vw';
+            
+            // Tamaño aleatorio pequeño
+            const size = Math.random() * 8 + 5 + 'px';
+            corazon.style.width = size;
+            corazon.style.height = size;
+            
+            // Velocidad aleatoria
+            corazon.style.animationDuration = Math.random() * 3 + 3 + 's';
+            
+            document.body.appendChild(corazon);
+
+            // Limpieza
+            setTimeout(() => {
+                corazon.remove();
+            }, 6000);
+        }
+
+        // Generar corazones continuamente
+        setInterval(crearCorazon, 350);
+    </script>
+</body>
+</html>
         }
 
         .flores {
