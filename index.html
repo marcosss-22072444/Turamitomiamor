@@ -2,68 +2,164 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para mi amor</title>
-    <style>
-        /* Limpiamos todo para que no haya errores de tamaño */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Amor</title>
+    >
+</head>
+<body>
+    <div class="container">
+        <div class="flowers-container">
+            <!-- Flor 1 izquierda -->
+            <div class="stem left-stem">
+                <div class="paper-wrap">
+                    <div class="hearts"></div>
+                </div>
+                <div class="flower">
+                    <div class="petal petal1"></div>
+                    <div class="petal petal2"></div>
+                    <div class="petal petal3"></div>
+                    <div class="petal petal4"></div>
+                    <div class="petal petal5"></div>
+                    <div class="petal petal6"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
+            <!-- Flor 2 derecha -->
+            <div class="stem right-stem">
+                <div class="paper-wrap">
+                    <div class="hearts"></div>
+                </div>
+                <div class="flower">
+                    <div class="petal petal1"></div>
+                    <div class="petal petal2"></div>
+                    <div class="petal petal3"></div>
+                    <div class="petal petal4"></div>
+                    <div class="petal petal5"></div>
+                    <div class="petal petal6"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
+            <!-- Lazo corazón -->
+            <div class="ribbon"></div>
+        </div>
+        <button id="loveBtn" class="heart-btn">💕 Pulsa aquí 💕</button>
+        <div id="note" class="love-note hidden">
+            <p>Para la mejor persona de mi vida<br>Te amo amor mío 🤍</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</xai:function_call>
 
-        body {
-            background-color: #ffe4e1; /* Fondo rosita */
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden; /* Evita que la pantalla se mueva */
-            position: relative;
-        }
+**style.css**
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* Contenedor que obliga a que todo esté centrado y no se escape */
-        .escena {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 350px; /* Tamaño perfecto para móvil */
-            padding: 20px;
-        }
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #f8d7e4 50%, #ffeef5 100%);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
 
-        /* AJUSTE DE LA IMAGEN: Ahora sí o sí estará centrada y a tamaño real */
-        .ramo-img {
-            width: 100%;
-            height: auto;
-            max-height: 60vh; /* Para que no ocupe toda la pantalla */
-            object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-            
-            /* Animación de florecer poco a poco */
-            opacity: 0;
-            transform: scale(0.5);
-            animation: florecer 3s ease-out forwards;
-        }
+.container {
+    text-align: center;
+    position: relative;
+    max-width: 90vw;
+}
 
-        @keyframes florecer {
-            to { opacity: 1; transform: scale(1); }
-        }
+.flowers-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 50px;
+}
 
-        /* Botón/Lazo */
-        .boton-amor {
-            background-color: #ffb7c5;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: 2px solid white;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
+.stem {
+    position: absolute;
+    bottom: 0;
+    width: 8px;
+    height: 200px;
+    background: linear-gradient(to top, #228B22, #32CD32);
+    border-radius: 4px 4px 0 0;
+    transform-origin: bottom;
+    animation: grow 4s ease-out forwards;
+}
+
+.left-stem {
+    left: 20%;
+    animation-delay: 1s;
+}
+
+.right-stem {
+    right: 20%;
+    animation-delay: 2s;
+}
+
+.paper-wrap {
+    position: absolute;
+    bottom: 20px;
+    left: -15px;
+    width: 38px;
+    height: 40px;
+    background: white;
+    border-radius: 20px 20px 10px 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+.hearts {
+    position: absolute;
+    font-size: 12px;
+    color: #f9c8d9;
+    top: 5px;
+    left: 5px;
+}
+
+.hearts::before, .hearts::after {
+    content: '🤍';
+    position: absolute;
+}
+
+.hearts::after {
+    left: 20px;
+    top: 15px;
+    transform: scale(0.8);
+}
+
+.flower {
+    position: absolute;
+    bottom: 50px;
+    left: -25px;
+    width: 60px;
+    height: 60px;
+    transform: scale(0);
+    animation: bloom 4s ease-out forwards;
+}
+
+.left-stem .flower { animation-delay: 3s; }
+.right-stem .flower { animation-delay: 3.5s; }
+
+.petal {
+    position: absolute;
+    width: 30px;
+    height: 45px;
+    background: radial-gradient(ellipse at center, #ff1744 0%, #d50000 70%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform-origin: bottom center;
+    opacity: 0;
+}
+
+.petal1 { transform: rotate(0deg) scale(0); animation: petalOpen 0.8s 3.5s forwards; }
+.petal2 { transform: rotate(60deg) scale(0); animation: petalOpen 0.8s 3.6s forwards; }
+.petal3 { transform: rotate(120deg) scale(0); animation: petalOpen 0.8s 3.7s forwards; }
+.petal4 { transform: rotate(180deg)            margin-top: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 20;
             transition: 0.3s;
