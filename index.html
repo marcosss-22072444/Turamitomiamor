@@ -3,37 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para ti 🤍</title>
+    <title>Para alguien especial 🤍</title>
     <style>
         :root {
-            --bg-color: #fff0f3;
+            --bg-rosa: #fff0f3;
+            --rosa-pastel: #ffcad4;
+            --rojo-rosa: #e63946;
+            --rojo-oscuro: #9b2226;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: var(--bg-rosa);
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; font-family: sans-serif;
         }
 
-        /* Contenedor principal */
-        .main-container {
+        /* Contenedor del Ramo */
+        .bouquet-container {
             position: relative;
-            width: 100%;
-            height: 100%;
+            width: 300px;
+            height: 450px;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
+            transform: scale(0);
+            transition: transform 3.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
         }
 
-        /* El Ramo */
+        .bouquet-container.bloom { transform: scale(1); }
+
+        /* Las Rosas (Hechas con gradientes para realismo) */
+        .flowers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            z-index: 3;
+            margin-bottom: -40px;
+        }
+
+        .rose {
+            width: 60px; height: 60px;
+            background: radial-gradient(circle at 30% 30%, var(--rojo-rosa), var(--rojo-oscuro));
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.4), 2px 5px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .rose::after {
+            content: ''; position: absolute; top: 15%; left: 15%;
+            width: 70%; height: 70%; border-radius: 50%;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+
+        /* Papel Blanco con Corazones Rosa Pastel */
+        .wrapper {
+            position: relative;
+            width: 200px; height: 250px;
+            background: #ffffff;
+            z-index: 2;
+            clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);
+            background-image: radial-gradient(var(--rosa-pastel) 20%, transparent 20%), 
+                              radial-gradient(var(--rosa-pastel) 20%, transparent 20%);
+            background-position: 0 0, 15px 15px;
+            background-size: 30px 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Lazo Blanco en forma de Corazón */
+        .heart-ribbon {
+            position: absolute;
+            bottom: 50px;
+            width: 110px; height: 100px;
+            background: #ffffff;
+            z-index: 10;
+            display: flex; justify-content: center; align-items: center;
+            text-align: center; color: #ff4d6d; font-weight: bold; font-size: 13px;
+            cursor: pointer;
+            clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+            transform: scale(0);
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .heart-ribbon.show { transform: scale(3.5); } /* Escala grande para que se vea el corazón */
+
+        /* Pantalla Final */
+        #screen-msg {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255,255,255,0.98);
+            display: none; justify-content: center; align-items: center;
+            flex-direction: column; z-index: 100;
+        }
+
+        .box {
+            padding: 30px; border-radius: 20px;
+            background: white; border: 2px solid var(--rosa-pastel);
+            text-align: center; box-shadow: 0 15px 40px rgba(255,182,193,0.5);
+            max-width: 80%; animation: pop 0.5s ease-out;
+        }
+
+        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        h1 { color: #ff4d6d; margin-bottom: 10px; font-size: 1.4rem; }
+        p { color: #666; }
+    </style>
+</head>
+<body>
+
+    <div class="bouquet-container" id="bouquet">
+        <div class="flowers-grid">
+            <div class="rose"></div><div class="rose"></div><div class="rose"></div>
+            <div class="rose"></div><div class="rose"></div><div class="rose"></div>
+            <div class="rose"></div><div class="rose"></div><div class="rose"></div>
+        </div>
+        <div class="wrapper"></div>
+        <div class="heart-ribbon" id="ribbon" onclick="showMsg()">PULSA<br>AQUÍ</div>
+    </div>
+
+    <div id="screen-msg">
+        <div class="box">
+            <h1>🤍</h1>
+            <p>Un ramo para la persona más importante del mundo.</p>
+            <p style="font-size: 0.8rem; color: #bbb;">Te quiero mucho</p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            const bouquet = document.getElementById('bouquet');
+            const ribbon = document.getElementById('ribbon');
+
+            // Iniciar florecimiento
+            setTimeout(() => {
+                bouquet.classList.add('bloom');
+            }, 300);
+
+            // Mostrar lazo corazón
+            setTimeout(() => {
+                ribbon.classList.add('show');
+            }, 4000);
+        };
+
+        function showMsg() {
+            document.getElementById('screen-msg').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
         .bouquet-wrapper {
             position: relative;
             width: 90vw;
