@@ -1,68 +1,143 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para alguien especial 🤍</title>
-    <style>
-        :root {
-            --bg-rosa: #fff0f3;
-            --rosa-pastel: #ffcad4;
-            --rojo-rosa: #e63946;
-            --rojo-oscuro: #9b2226;
-        }
+<meta charset="UTF-8">
+<title>Sorpresa 💖</title>
 
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            background-color: var(--bg-rosa);
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden; font-family: sans-serif;
-        }
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: #ffe4ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
 
-        /* Contenedor del Ramo */
-        .bouquet-container {
-            position: relative;
-            width: 300px;
-            height: 450px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transform: scale(0);
-            transition: transform 3.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-        }
+/* Contenedor del ramo */
+.bouquet {
+  position: relative;
+  opacity: 0;
+  transform: translateY(100px) scale(0.8);
+  animation: appear 3s ease forwards;
+}
 
-        .bouquet-container.bloom { transform: scale(1); }
+/* Imagen de flores realistas */
+.bouquet img {
+  width: 300px;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+}
 
-        /* Las Rosas (Hechas con gradientes para realismo) */
-        .flowers-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            z-index: 3;
-            margin-bottom: -40px;
-        }
+/* Papel envolvente */
+.wrapper {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 120px;
+  background: white;
+  border-radius: 10px;
+  background-image: radial-gradient(#ffc0cb 10%, transparent 11%);
+  background-size: 20px 20px;
+}
 
-        .rose {
-            width: 60px; height: 60px;
-            background: radial-gradient(circle at 30% 30%, var(--rojo-rosa), var(--rojo-oscuro));
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.4), 2px 5px 10px rgba(0,0,0,0.2);
-            position: relative;
-        }
+/* Lazo corazón */
+.ribbon {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
 
-        .rose::after {
-            content: ''; position: absolute; top: 15%; left: 15%;
-            width: 70%; height: 70%; border-radius: 50%;
-            border-top: 2px solid rgba(255,255,255,0.2);
-        }
+.heart {
+  width: 60px;
+  height: 60px;
+  background: pink;
+  transform: rotate(-45deg);
+  position: relative;
+}
 
-        /* Papel Blanco con Corazones Rosa Pastel */
-        .wrapper {
-            position: relative;
-            width: 200px; height: 250px;
-            background: #ffffff;
-            z-index: 2;
+.heart::before,
+.heart::after {
+  content: "";
+  width: 60px;
+  height: 60px;
+  background: pink;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart::before {
+  top: -30px;
+  left: 0;
+}
+
+.heart::after {
+  left: 30px;
+  top: 0;
+}
+
+.text {
+  text-align: center;
+  color: #d6336c;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Nota */
+.note {
+  position: absolute;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid pink;
+  display: none;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+/* Animación */
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bouquet">
+  <!-- CAMBIA ESTA IMAGEN si quieres otra -->
+  <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df" alt="flores">
+
+  <div class="wrapper"></div>
+
+  <div class="ribbon" onclick="showNote()">
+    <div class="heart"></div>
+    <div class="text">Pulsa aquí 💗</div>
+  </div>
+</div>
+
+<div class="note" id="note">
+  <h3>💌 Para la mejor persona de mi vida</h3>
+  <p>Te amo amor mío 🤍</p>
+</div>
+
+<script>
+function showNote() {
+  document.getElementById("note").style.display = "block";
+}
+</script>
+
+</body>
+</html>            z-index: 2;
             clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);
             background-image: radial-gradient(var(--rosa-pastel) 20%, transparent 20%), 
                               radial-gradient(var(--rosa-pastel) 20%, transparent 20%);
