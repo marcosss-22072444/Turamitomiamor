@@ -5,35 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para mi amor</title>
     <style>
-        /* ESTILOS BASE Y RESPONSIVE */
-        html, body {
+        /* Limpiamos todo para que no haya errores de tamaño */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* Evita barras de desplazamiento */
-            background-color: #ffe4e1; /* Fondo rosita claro */
-            font-family: 'Georgia', serif;
+        }
+
+        body {
+            background-color: #ffe4e1; /* Fondo rosita */
+            height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Evita que la pantalla se mueva */
+            position: relative;
         }
 
-        /* Contenedor principal centrado */
-        .main-container {
+        /* Contenedor que obliga a que todo esté centrado y no se escape */
+        .escena {
+            position: relative;
+            z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            width: 90%; /* Ocupa el 90% del ancho del dispositivo */
-            max-width: 400px; /* Ancho máximo para que no se vea enorme en PC */
-            height: auto;
-            position: relative;
-            z-index: 10;
+            width: 100%;
+            max-width: 350px; /* Tamaño perfecto para móvil */
+            padding: 20px;
         }
 
-        /* CONTENEDOR DE LAS FLORES Y LAZO */
-        .ramo-interactive-container {
+        /* AJUSTE DE LA IMAGEN: Ahora sí o sí estará centrada y a tamaño real */
+        .ramo-img {
+            width: 100%;
+            height: auto;
+            max-height: 60vh; /* Para que no ocupe toda la pantalla */
+            object-fit: contain;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            
+            /* Animación de florecer poco a poco */
+            opacity: 0;
+            transform: scale(0.5);
+            animation: florecer 3s ease-out forwards;
+        }
+
+        @keyframes florecer {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Botón/Lazo */
+        .boton-amor {
+            background-color: #ffb7c5;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 2px solid white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 20;
+            transition: 0.3s;
+        }
+
+        .boton-amor:active {
+            transform: scale(0.9);
+        }
+
+        /* NOTA ENAMORADA */
+        #mensaje {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            width: 80%;
+            max-width: 300px;
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #ffb7c5;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .corazon-blanco {
+            position: absolute;
+            color: white; /* Corazones blancos */
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: caer 5s linear infinite;
+        }
+
+        @keyframes caer {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            1
             width: 100%;
             position: relative;
             cursor: pointer;
